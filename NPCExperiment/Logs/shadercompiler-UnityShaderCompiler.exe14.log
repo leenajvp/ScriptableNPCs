@@ -1,0 +1,16 @@
+Base path: 'C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2020.3.20f1/Editor/Data/PlaybackEngines'
+Cmd: initializeCompiler
+
+Cmd: compileComputeKernel
+  insize=8847 file=D:/PortfolioProjects/NPC_Experiment/ScriptableNPCs/NPCExperiment/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/ProbeVolume/ProbeVolumeAtlasBlit.compute kernel=ProbeVolumeAtlasBlitKernel cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<PROBE_VOLUME_ATLAS_BLIT_KERNEL=ProbeVolumeAtlasBlitKernel>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=2280
+
+Cmd: compileComputeKernel
+  insize=4140 file=D:/PortfolioProjects/NPC_Experiment/ScriptableNPCs/NPCExperiment/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/PostProcessing/Shaders/DepthOfFieldCoCReproject.compute kernel=KMain cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=2419
+
+Cmd: compileComputeKernel
+  insize=10754 file=D:/PortfolioProjects/NPC_Experiment/ScriptableNPCs/NPCExperiment/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant19 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant19>,<USE_INDIRECT=1>,<VARIANT=19>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_ON SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=65390
+
+Cmd: compileComputeKernel
+  insize=10754 file=D:/PortfolioProjects/NPC_Experiment/ScriptableNPCs/NPCExperiment/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant2 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant2>,<USE_INDIRECT=1>,<VARIANT=2>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_ON SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=26568
+
+Cmd: shutdown
