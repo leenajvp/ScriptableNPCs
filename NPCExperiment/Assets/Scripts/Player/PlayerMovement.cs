@@ -3,75 +3,100 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody), typeof(Animator))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPlayerControls
 {
     [SerializeField]
-    float speed = 5;
+    float speed = 2;
+    [SerializeField]
+    float walkingSpeed = 2;
+    [SerializeField]
+    float runningSpeed = 5;
     [SerializeField]
     float rotationSpeed = 10;
+
+    List<GameObject> boidsDetected = new List<GameObject>();
+
+    public bool isRunning { get; set; }
+    private KeyboardControls playerControls;
 
     private Animator animState;
 
     void Start()
     {
         animState = GetComponent<Animator>();
+        playerControls = GetComponent<KeyboardControls>();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (isRunning)
         {
-            Forward();
-            animState.SetBool("isMoving", true);
+            speed = runningSpeed;
         }
 
-        if (Input.GetKeyUp(KeyCode.S))
+        else
         {
-            animState.SetBool("isMoving", false);
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            Backward();
-            animState.SetBool("isMoving", true);
-        }
-
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            animState.SetBool("isMoving", false);
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            TurnLeft();
-
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            TurnRight();
+            speed = walkingSpeed;
         }
     }
 
-    private void Forward()
+    public void Forward()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
-
     }
 
-    private void Backward()
+    public void Backward()
     {
         transform.position -= transform.forward * speed * Time.deltaTime;
+    }
+
+
+    public void Run()
+    {
+        if (Input.GetKeyDown(playerControls.run))
+        {
+            isRunning = true;
+        }
 
     }
 
-    private void TurnLeft()
+    public void TurnLeft()
     {
         transform.Rotate(0.0f, -rotationSpeed * Time.deltaTime, 0.0f);
     }
 
-    private void TurnRight()
+    public void TurnRight()
     {
         transform.Rotate(0.0f, rotationSpeed * Time.deltaTime, 0.0f);
+    }
+
+    public void PickUp()
+    {
+       
+    }
+
+    public void Swat()
+    {
+        
+    }
+
+    public void Magic()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 8);
+
+        foreach (var col in colliders)
+        {
+            BoidBehaviour followBoids = col.gameObject.GetComponent<BoidBehaviour>();
+
+            if (followBoids != null)
+            {
+                boidsDetected.Add(col.gameObject);
+
+                foreach (GameObject boid in boidsDetected)
+                {
+                    followBoids.boidHealth = 0;
+                }
+            }
+        }
     }
 }
