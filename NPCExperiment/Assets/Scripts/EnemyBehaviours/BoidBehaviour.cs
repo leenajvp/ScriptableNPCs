@@ -4,37 +4,52 @@ using UnityEngine;
 
 public class BoidBehaviour : MonoBehaviour, IBoid
 {
-    public BoidData basicBehaviour;
+    public BoidData boidData;
 
     private float boidDetection;
     private float boidSpeed;
     public float boidHealth;
+    private float boidMinHealth;
 
     private Collider[] colliders;
     private GameObject player = null;
+    private GameObject target = null;
+    [SerializeField]
     private GameObject boidBase;
-    private GameObject target;
+    private Vector3 startPos;
     private Vector3 targetPos;
 
     List<GameObject> nearbyBoids = new List<GameObject>(10);
     new Renderer renderer;
     private bool isHealing = false;
-
+    
 
     void Start()
     {
-        boidSpeed = basicBehaviour.speed;
-        boidDetection = basicBehaviour.detectionRange;
-        boidHealth = basicBehaviour.health;
-        boidBase = basicBehaviour.target;
-        target = boidBase;
+        this.name = boidData.name;
+        boidSpeed = boidData.speed;
+        boidDetection = boidData.detectionRange;
+        boidHealth = boidData.health;
+        boidMinHealth = boidData.minHealth;
         renderer = GetComponent<Renderer>();
-        renderer.material = basicBehaviour.material;
+        renderer.material = boidData.material;
         isHealing = false;
+        startPos = transform.position;
+
+        if (transform.parent != null)
+        {
+            boidBase = transform.parent.gameObject;
+            target = boidBase;
+        }
+
+        else
+        {
+            targetPos = startPos;
+        }
     }
 
     void Update()
-    {
+    { 
         Observe(); 
         AlignWithBoids();       
         TurnTo(targetPos); 
@@ -42,9 +57,15 @@ public class BoidBehaviour : MonoBehaviour, IBoid
         Move();
         Heal();
 
-        
-        targetPos = target.transform.position;
-        TurnTo(targetPos);
+        if (target != null)
+        {
+            targetPos = target.transform.position;
+        }
+
+        else
+        {
+            targetPos = startPos;
+        }
     }
 
     void Move()
@@ -71,20 +92,40 @@ public class BoidBehaviour : MonoBehaviour, IBoid
 
             if (playerDetected != null)
             {
+                transform.parent = null;
                 player = playerDetected.gameObject;
-                target = player.gameObject;
-                boidSpeed = basicBehaviour.attackSpeed;
-                boidDetection = basicBehaviour.attackDetectionRange;
+                target = player;
+                //var playerPos = player.transform.localPositio
+                targetPos = new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z);
+                boidSpeed = Random.Range(boidSpeed, boidData.attackSpeed);
 
-                var distanceToBase = Vector3.Distance(transform.position, boidBase.transform.position);
+                if (boidHealth > 5)
+                {
+                    playerDetected.Swat();
+                }
 
-                if (distanceToBase >= 20 || boidHealth < 5)
+
+
+            }
+
+            var distanceToBase = Vector3.Distance(transform.position, boidBase.transform.position);
+
+            if (distanceToBase >= 20 || boidHealth < 5)
+            {
+                if (boidBase != null)
                 {
                     target = boidBase;
-                    boidSpeed = basicBehaviour.speed;
-                    boidDetection = basicBehaviour.detectionRange;
-                    isHealing = true;
                 }
+
+                else
+                {
+                    target = null;
+                    targetPos = startPos;
+                }
+
+                boidSpeed = boidData.speed;
+                boidDetection = boidData.detectionRange;
+                isHealing = true;
             }
         }
     } 

@@ -1,22 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody), typeof(PlayerAnimations), typeof(KeyboardControls))]
 public class PlayerMovement : MonoBehaviour, IPlayerControls
 {
+    public float speed = 2f;
     [SerializeField]
-    float speed = 2;
+    float walkingSpeed = 2f;
     [SerializeField]
-    float walkingSpeed = 2;
+    float runningSpeed = 5f;
     [SerializeField]
-    float runningSpeed = 5;
-    [SerializeField]
-    float rotationSpeed = 10;
+    float rotationSpeed = 10f;
+
+    float lastReation = 0f;
 
     List<GameObject> boidsDetected = new List<GameObject>();
 
     public bool isRunning { get; set; }
+    public bool isDisabled = false;
     private KeyboardControls playerControls;
 
     private Animator animState;
@@ -42,22 +43,30 @@ public class PlayerMovement : MonoBehaviour, IPlayerControls
 
     public void Forward()
     {
-        transform.position += transform.forward * speed * Time.deltaTime;
+        if (!isDisabled)
+        {
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
     }
 
     public void Backward()
     {
-        transform.position -= transform.forward * speed * Time.deltaTime;
+        if (!isDisabled)
+        {
+            transform.position -= transform.forward * speed * Time.deltaTime;
+        }
     }
 
 
     public void Run()
     {
-        if (Input.GetKeyDown(playerControls.run))
+        if (!isDisabled)
         {
-            isRunning = true;
+            if (Input.GetKeyDown(playerControls.run))
+            {
+                isRunning = true;
+            }
         }
-
     }
 
     public void TurnLeft()
@@ -72,31 +81,44 @@ public class PlayerMovement : MonoBehaviour, IPlayerControls
 
     public void PickUp()
     {
-       
+
     }
 
     public void Swat()
     {
-        
+        if (Time.time < lastReation + 5.0f)
+            return;
+
+        lastReation = Time.time;
+
+        PlayerAnimations swatAnim = GetComponent<PlayerAnimations>();
+        swatAnim.isSwatting = true;
+        speed = walkingSpeed;
     }
+
+
 
     public void Magic()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 8);
-
-        foreach (var col in colliders)
+        if (!isDisabled)
         {
-            BoidBehaviour followBoids = col.gameObject.GetComponent<BoidBehaviour>();
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 15);
 
-            if (followBoids != null)
+            foreach (var col in colliders)
             {
-                boidsDetected.Add(col.gameObject);
+                BoidBehaviour followBoids = col.gameObject.GetComponent<BoidBehaviour>();
 
-                foreach (GameObject boid in boidsDetected)
+                if (followBoids != null)
                 {
-                    followBoids.boidHealth = 0;
+                    boidsDetected.Add(col.gameObject);
+
+                    foreach (GameObject boid in boidsDetected)
+                    {
+                        followBoids.boidHealth = 0;
+                    }
                 }
             }
         }
+
     }
 }

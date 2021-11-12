@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84aa83a3efa501a4fa6e6a3a1ea24085, type: 3}
+  m_Name: CirclingBoidSwarm 1
+  m_EditorClassIdentifier: 
+  baseMovement: 2
+  speed: 2
+  min: 2
+  max: 3
+  rotationSpeed: 50
+  objectToSpawn: {fileID: 3513393021147940082, guid: a25c130a258cc594392e23353cd8c88d, type: 3}
+  boidData: {fileID: 11400000, guid: 60d8ed17db4cd3343849a05d58fbe004, type: 2}
+  numberOfPrefabsToCreate: 100
