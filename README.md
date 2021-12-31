@@ -1,5 +1,5 @@
 # ScriptableNPCs
-Personal project to experiment with different type of scriptable NPC characters 
+Personal project to experiment with different type of scriptable Boids and simple enemies. 
 
 
 
