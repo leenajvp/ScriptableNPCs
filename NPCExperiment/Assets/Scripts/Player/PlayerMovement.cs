@@ -121,4 +121,9 @@ public class PlayerMovement : MonoBehaviour, IPlayerControls
         }
 
     }
+
+    public Vector3 GetLocation()
+    {
+        return transform.position;
+    }
 }

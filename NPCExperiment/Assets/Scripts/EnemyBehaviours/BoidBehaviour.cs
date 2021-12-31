@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ public class BoidBehaviour : MonoBehaviour, IBoid
     public BoidData boidData;
 
     private float boidDetection;
-    private float boidSpeed;
+    public float boidSpeed;
     public float boidHealth;
     private float boidMinHealth;
 
@@ -22,7 +21,7 @@ public class BoidBehaviour : MonoBehaviour, IBoid
     List<GameObject> nearbyBoids = new List<GameObject>(10);
     new Renderer renderer;
     private bool isHealing = false;
-    
+
 
     void Start()
     {
@@ -49,11 +48,11 @@ public class BoidBehaviour : MonoBehaviour, IBoid
     }
 
     void Update()
-    { 
-        Observe(); 
-        AlignWithBoids();       
-        TurnTo(targetPos); 
-        AvoidBoids();  
+    {
+        Observe();
+        AlignWithBoids();
+        TurnTo(targetPos);
+        AvoidBoids();
         Move();
         Heal();
 
@@ -95,7 +94,6 @@ public class BoidBehaviour : MonoBehaviour, IBoid
                 transform.parent = null;
                 player = playerDetected.gameObject;
                 target = player;
-                //var playerPos = player.transform.localPositio
                 targetPos = new Vector3(player.transform.position.x, player.transform.position.y + 3, player.transform.position.z);
                 boidSpeed = Random.Range(boidSpeed, boidData.attackSpeed);
 
@@ -103,17 +101,16 @@ public class BoidBehaviour : MonoBehaviour, IBoid
                 {
                     playerDetected.Swat();
                 }
-
-
-
             }
 
             var distanceToBase = Vector3.Distance(transform.position, boidBase.transform.position);
+            float speedUp = 10;
 
             if (distanceToBase >= 20 || boidHealth < 5)
             {
                 if (boidBase != null)
                 {
+                    boidSpeed = speedUp;
                     target = boidBase;
                 }
 
@@ -128,7 +125,7 @@ public class BoidBehaviour : MonoBehaviour, IBoid
                 isHealing = true;
             }
         }
-    } 
+    }
 
     void AlignWithBoids()
     {
@@ -172,7 +169,7 @@ public class BoidBehaviour : MonoBehaviour, IBoid
         {
             boidHealth += 1 * Time.deltaTime;
 
-            if(boidHealth >= 20)
+            if (boidHealth >= 20)
             {
                 isHealing = false;
             }
